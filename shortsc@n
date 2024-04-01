@@ -1,5 +1,6 @@
 nano autoshortscan.sh 
 xargs -I {} sh -c 'scantool -F "{}"'  <<< $(cat -)
+chmod +x autoshortscan.sh
 sudo cp autoshortscan.sh /usr/local/bin
 use 
 cat file.txt | autoshortscan.sh
