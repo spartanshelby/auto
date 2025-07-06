@@ -1,0 +1,18 @@
+awk '{ system("sourcemapper -output test -jsurl \"" $0 "\"") }' js.txt
+
+&& jsluice secrets -p patterns.json test/* | jq && trufflehog filesystem test/*
+
+
+
+while read url; do echo "[+] Processing URL: $url"; mkdir tezt/"$url"; sourcemapper --output test/"$url" --jsurl "$url"; done < js.txt
+
+trufflehog filesystem . --json | jq
+trufflehog filesystem * --json | jq
+trufflehog filesystem .
+
+
+############################################################################################################## use below
+
+while read url; do safe_name=$(echo "$url" | sed 's/[^a-zA-Z0-9]/_/g'); echo "[+] Processing URL: $url"; mkdir -p tezt/"$safe_name"/; sourcemapper --output tezt/"$safe_name" --jsurl "$url"; done < test2.txt
+
+trufflehog filesystem .
